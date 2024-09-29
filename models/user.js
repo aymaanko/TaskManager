@@ -1,5 +1,5 @@
 const db = require('../db');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 class User {
   constructor(username, password) {
@@ -9,7 +9,7 @@ class User {
 
   async save() {
     try {
-      const hashedPassword = await bcrypt.hash(this.password, 10);
+      const hashedPassword = bcrypt.hashSync(this.password, 10);
       console.log('Hashed password:', hashedPassword);
       const query = 'INSERT INTO users SET ?';
       const values = { username: this.username, password: hashedPassword };
@@ -33,7 +33,7 @@ class User {
       }
       const hashedPassword = result[0].password;
       console.log('Hashed password:', hashedPassword);
-      const isValidPassword = await bcrypt.compare(candidatePassword, hashedPassword);
+      const isValidPassword =bcrypt.compareSync(candidatePassword, hashedPassword);
       console.log('Is valid password:', isValidPassword);
       return isValidPassword;
     } catch (err) {

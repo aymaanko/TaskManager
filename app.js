@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const session = require('express-session');
 
 const app = express();
@@ -43,7 +43,7 @@ app.post('/api/register', async (req, res) => {
       res.status(400).json({ error: 'Username already exists' });
       return;
     }
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword =bcrypt.hashSync(password, 10);
     const [result] = await db.execute('INSERT INTO users SET username = ?, password = ?', [username, hashedPassword]);
     res.json({ message: 'Registration successful!!', redirect: '/' }); // Return a JSON response with a redirect URL
   } catch (err) {
@@ -70,7 +70,7 @@ app.post('/api/login', async (req, res) => {
     if (rows.length === 0) {
       res.status(401).json({ success: false, message: 'Invalid username or password' });
     } else {
-      const isValidPassword = await bcrypt.compare(password, rows[0].password);
+      const isValidPassword =bcrypt.compareSync(password, rows[0].password);
       if (isValidPassword) {
         req.session.userId = rows[0].id; // Set the user ID in the session
         res.json({ success: true, message: 'Login successful!!', userId: rows[0].id });
