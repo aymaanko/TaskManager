@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <title>Task Manager</title>
+  <link rel="stylesheet" type="text/css" href="./css/tasks.css">
+</head>
+<body>
+  <div id="task-manager">
+    <div id="form-container">
+      <h1>Task Manager</h1>
+      <form id="task-form">
+        <input type="text" id="title" placeholder="Title" required>
+        <textarea id="description" placeholder="Description" maxlength="50"></textarea>
+        <p id="char-count">0/50 characters</p>
+        <input type="date" id="due-date" max="9999-12-31" required>
+        <select id="category" required>
+          <option value="Work">Work</option>
+          <option value="Personal">Personal</option>
+          <option value="Other">Other</option>
+        </select>
+        <input type="text" id="other-input" placeholder="Enter specific category" style="display: none;">
+        <button type="submit">Add Task</button>
+      </form>
+    </div>
+    
+    <div id="task-options">
+      <!-- Flexbox container to align search, filter, and sort options on the same line -->
+      <div id="task-controls">
+        <div id="search-container">
+          <input type="text" id="search-bar" placeholder="Search tasks...">
+        </div>
+        <div id="filter-container">
+          <select id="filter-category">
+            <option value="all">All</option>
+            <option value="Work">Work</option>
+            <option value="Personal">Personal</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div id="sort-container">
+          <button id="sort-by-title">Sort by Title</button>
+          <button id="sort-by-date">Sort by Due Date</button>
+          <button id="logout-button">Logout</button>
+    
+        </div>
+      </div>
+      
+      <div id="task-list-container">
+        <div id="task-list"></div>
+      </div>
+    </div>
+    
+  </div>
+  
+  <script src="./js/script.js"></script>
+</body>
+</html>
